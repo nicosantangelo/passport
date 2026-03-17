@@ -196,17 +196,17 @@ function Identity({
   }) {
     return (
       <div className="flex flex-col gap-0.5">
-        <span className="text-[9px] tracking-[0.18em] uppercase text-muted-foreground font-medium">
+        <span className="text-xs tracking-widest uppercase text-muted-foreground">
           {label}
         </span>
         {editing ? (
           <Input
-            className="font-bold h-6 px-1 py-0 text-sm"
+            className="font-mono h-7 px-2 py-1 text-sm"
             value={value}
             onChange={(e) => onChange({ ...identity, [field]: e.target.value })}
           />
         ) : (
-          <span className="font-semibold text-sm text-foreground">{value}</span>
+          <span className="font-mono text-sm">{value}</span>
         )}
       </div>
     );
@@ -231,17 +231,17 @@ function Identity({
       {/*<PassportRosette />*/}
 
       {/* Data section */}
-      <div className="p-5 flex flex-col gap-4">
+      <div className="p-5 flex flex-col gap-8">
         {/* Title + doc number + edit + photo */}
         <div className="flex gap-5">
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex items-start justify-between">
               <div>
-                <p className="font-bold tracking-[0.18em] uppercase text-[11px] text-muted-foreground">
-                  United States of America
+                <p className="text-xs tracking-[0.2em] uppercase font-semibold">
+                  INTERNATIONAL PASSPORT
                 </p>
-                <p className="font-bold tracking-[0.3em] uppercase text-base text-foreground leading-tight">
-                  Passport
+                <p className="text-xs tracking-widest text-muted-foreground uppercase">
+                  Identity Document
                 </p>
               </div>
 
@@ -292,12 +292,16 @@ function Identity({
         </div>
 
         <div className="flex gap-6">
-          <Field label="Sex" value="—" field="username" />
-          <Field
-            label="Place of Birth"
-            value={`${identity.city}, ${identity.state}`}
-            field="city"
-          />
+          <div className="flex-1">
+            <Field label="Sex" value="—" field="username" />
+          </div>
+          <div className="flex-1">
+            <Field
+              label="Place of Birth"
+              value={`${identity.city}, ${identity.state}`}
+              field="city"
+            />
+          </div>
           <div className="flex-1">
             <Field
               label="Holder's Signature"
