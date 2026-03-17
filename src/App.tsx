@@ -78,7 +78,7 @@ function App() {
   );
 }
 
-function PassportRosette() {
+export function PassportRosette() {
   return (
     <div className="relative bg-slate-50 border-b border-neutral-200 overflow-hidden flex items-center justify-center h-44">
       <svg
@@ -161,7 +161,7 @@ function PassportMrz({ line1, line2 }: { line1: string; line2: string }) {
   const Row = ({ line }: { line: string }) => (
     <div className="flex justify-between w-full">
       {line.split("").map((ch, i) => (
-        <span key={i} className="font-mono text-xs text-neutral-500">
+        <span key={i} className="font-mono text-xs text-muted-foreground">
           {ch}
         </span>
       ))}
@@ -169,7 +169,7 @@ function PassportMrz({ line1, line2 }: { line1: string; line2: string }) {
   );
 
   return (
-    <div className="border-t border-neutral-200 bg-neutral-50 px-5 py-3 flex flex-col gap-1.5">
+    <div className="border-t border-border bg-card px-5 py-3 flex flex-col gap-1.5">
       <Row line={line1} />
       <Row line={line2} />
     </div>
@@ -196,19 +196,17 @@ function Identity({
   }) {
     return (
       <div className="flex flex-col gap-0.5">
-        <span className="text-[9px] tracking-[0.18em] uppercase text-neutral-500 font-medium">
+        <span className="text-[9px] tracking-[0.18em] uppercase text-muted-foreground font-medium">
           {label}
         </span>
         {editing ? (
           <Input
-            className="font-bold h-6 px-1 py-0 text-sm border-neutral-300 bg-white text-neutral-900"
+            className="font-bold h-6 px-1 py-0 text-sm"
             value={value}
             onChange={(e) => onChange({ ...identity, [field]: e.target.value })}
           />
         ) : (
-          <span className="font-semibold text-sm text-neutral-800">
-            {value}
-          </span>
+          <span className="font-semibold text-sm text-foreground">{value}</span>
         )}
       </div>
     );
@@ -229,7 +227,7 @@ function Identity({
     .slice(0, 44);
 
   return (
-    <div className="bg-slate-100 rounded-xl overflow-hidden shadow-sm">
+    <div className="bg-card rounded-xl overflow-hidden shadow-sm">
       {/*<PassportRosette />*/}
 
       {/* Data section */}
@@ -239,10 +237,10 @@ function Identity({
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex items-start justify-between">
               <div>
-                <p className="font-bold tracking-[0.18em] uppercase text-[11px] text-neutral-700">
+                <p className="font-bold tracking-[0.18em] uppercase text-[11px] text-muted-foreground">
                   United States of America
                 </p>
-                <p className="font-bold tracking-[0.3em] uppercase text-base text-neutral-900 leading-tight">
+                <p className="font-bold tracking-[0.3em] uppercase text-base text-foreground leading-tight">
                   Passport
                 </p>
               </div>
@@ -286,7 +284,7 @@ function Identity({
 
           {/* Photo */}
           <div>
-            <p className="font-mono text-[10px] text-neutral-400 mt-0.5 tracking-widest">
+            <p className="font-mono text-[10px] text-muted-foreground mt-0.5 tracking-widest">
               AA03 0123456789
             </p>
             <div className="w-full h-28 rounded bg-teal-600 shrink-0 mt-2" />
