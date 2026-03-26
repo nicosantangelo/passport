@@ -2,60 +2,7 @@ import { ChangeEvent, useState } from "react";
 import { Pencil, Check } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
-import {
-  randFirstName,
-  randLastName,
-  randStreetAddress,
-  randCity,
-  randStateAbbr,
-  randZipCode,
-  randBetweenDate,
-  randUserName,
-  randPassword,
-  randNumber,
-} from "@ngneat/falso";
-
-type Passport = {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  address: string;
-  country: string;
-  city: string;
-  state: string;
-  zip: string;
-  dob: string;
-  username: string;
-  password: string;
-};
-
-function generatePassport(): Passport {
-  const now = new Date();
-  const from = new Date(now.getFullYear() - 80, 0, 1);
-  const to = new Date(now.getFullYear() - 18, 11, 31);
-  const dob = randBetweenDate({ from, to });
-  const month = String(dob.getMonth() + 1).padStart(2, "0");
-  const day = String(dob.getDate()).padStart(2, "0");
-  const year = dob.getFullYear();
-
-  const areaCode = randNumber({ min: 200, max: 999 });
-  const prefix = randNumber({ min: 200, max: 999 });
-  const line = String(randNumber({ min: 0, max: 9999 })).padStart(4, "0");
-
-  return {
-    firstName: randFirstName(),
-    lastName: randLastName(),
-    phone: `+1 (${areaCode}) ${prefix}-${line}`,
-    address: randStreetAddress(),
-    country: "United States of America",
-    city: randCity(),
-    state: randStateAbbr(),
-    zip: randZipCode(),
-    dob: `${month}/${day}/${year}`,
-    username: randUserName(),
-    password: randPassword(),
-  };
-}
+import { generatePassport, type Passport } from "./lib/passport";
 
 function App() {
   const [passport, setPassport] = useState<Passport>(generatePassport());
@@ -78,7 +25,7 @@ function App() {
 
 export function PassportRosette() {
   return (
-    <div className="relative bg-slate-50 border-b border-neutral-200 overflow-hidden flex items-center justify-center h-44">
+    <div className="relative border-b overflow-hidden flex items-center justify-center h-43">
       <svg
         viewBox="0 0 300 180"
         className="absolute inset-0 w-full h-full text-teal-500 opacity-20"
@@ -156,20 +103,20 @@ export function PassportRosette() {
 }
 
 function PassportMrz({ line1, line2 }: { line1: string; line2: string }) {
-  const Row = ({ line }: { line: string }) => (
+  const Row = ({ lines }: { lines: string[] }) => (
     <div className="flex justify-between w-full">
-      {line.split("").map((ch, i) => (
-        <span key={i} className="font-mono text-xs text-muted-foreground">
-          {ch}
+      {lines.map((character, index) => (
+        <span key={index} className="font-mono text-xs text-muted-foreground">
+          {character}
         </span>
       ))}
     </div>
   );
 
   return (
-    <div className="border-t border-border bg-card px-5 py-3 flex flex-col gap-1.5">
-      <Row line={line1} />
-      <Row line={line2} />
+    <div className="border-t border-border px-5 py-3 flex flex-col gap-1.5">
+      <Row lines={line1.split("")} />
+      <Row lines={line2.split("")} />
     </div>
   );
 }
