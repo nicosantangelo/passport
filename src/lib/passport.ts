@@ -3,17 +3,19 @@ import {
   randLastName,
   randStreetAddress,
   randCity,
-  randStateAbbr,
+  randState,
   randZipCode,
   randBetweenDate,
   randUserName,
   randPassword,
   randNumber,
+  randGender,
 } from "@ngneat/falso";
 
 export type Passport = {
   firstName: string;
   lastName: string;
+  sex: string;
   phone: string;
   address: string;
   country: string;
@@ -21,6 +23,7 @@ export type Passport = {
   state: string;
   zip: string;
   dob: string;
+  email: string;
   username: string;
   password: string;
 };
@@ -41,13 +44,15 @@ export function generatePassport(): Passport {
   return {
     firstName: randFirstName(),
     lastName: randLastName(),
+    sex: randGender(),
     phone: `+1 (${areaCode}) ${prefix}-${line}`,
     address: randStreetAddress(),
     country: "United States of America",
     city: randCity(),
-    state: randStateAbbr(),
+    state: randState(),
     zip: randZipCode(),
     dob: `${month}/${day}/${year}`,
+    email: "",
     username: randUserName(),
     password: randPassword(),
   };

@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="w-2xl flex flex-col gap-6 mt-16">
-        {passport && <Passport passport={passport} />}
+        <Passport passport={passport} />
 
         <Button
           className="w-full"
@@ -162,10 +162,10 @@ function Passport({ passport }: { passport: Passport }) {
 
             <div className="flex gap-6">
               <div className="flex-1">
-                <PassportField label="Sex" value="—" />
+                <PassportField label="Date of Birth" value={passport.dob} />
               </div>
               <div className="flex-1">
-                <PassportField label="Date of Birth" value={passport.dob} />
+                <PassportField label="Phone" value={passport.phone} />
               </div>
             </div>
           </div>
@@ -179,8 +179,6 @@ function Passport({ passport }: { passport: Passport }) {
             <div className="w-full h-28 rounded bg-primary shrink-0 mt-2" />
           </div>
         </div>
-
-        <PassportField label="Phone" value={passport.phone} />
 
         <PassportField label="Address" value={passport.address} />
 
