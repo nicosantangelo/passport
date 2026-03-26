@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Pencil, Check } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
@@ -15,7 +15,7 @@ import {
   randNumber,
 } from "@ngneat/falso";
 
-type Identity = {
+type Passport = {
   firstName: string;
   lastName: string;
   phone: string;
@@ -29,7 +29,7 @@ type Identity = {
   password: string;
 };
 
-function generateIdentity(): Identity {
+function generatePassport(): Passport {
   const now = new Date();
   const from = new Date(now.getFullYear() - 80, 0, 1);
   const to = new Date(now.getFullYear() - 18, 11, 31);
@@ -58,20 +58,18 @@ function generateIdentity(): Identity {
 }
 
 function App() {
-  const [identity, setIdentity] = useState<Identity | null>(null);
+  const [passport, setPassport] = useState<Passport>(generatePassport());
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="w-2xl flex flex-col gap-6">
-        <h1 className="mt-7 mb-4 font-medium">Identity</h1>
-
-        {identity && <Identity identity={identity} onChange={setIdentity} />}
+      <div className="w-2xl flex flex-col gap-6 mt-16">
+        {passport && <Passport passport={passport} onChange={setPassport} />}
 
         <Button
           className="w-full"
-          onClick={() => setIdentity(generateIdentity())}
+          onClick={() => setPassport(generatePassport())}
         >
-          {identity ? "REGENERATE" : "GENERATE"}
+          {passport ? "REGENERATE" : "GENERATE"}
         </Button>
       </div>
     </div>
@@ -176,48 +174,21 @@ function PassportMrz({ line1, line2 }: { line1: string; line2: string }) {
   );
 }
 
-function Identity({
-  identity,
+function Passport({
+  passport,
   onChange,
 }: {
-  identity: Identity;
-  onChange: (identity: Identity) => void;
+  passport: Passport;
+  onChange: (passport: Passport) => void;
 }) {
   const [editing, setEditing] = useState(false);
 
-  function Field({
-    label,
-    value,
-    field,
-  }: {
-    label: string;
-    value: string;
-    field: keyof Identity;
-  }) {
-    return (
-      <div className="flex flex-col gap-0.5">
-        <span className="text-xs tracking-widest uppercase text-muted-foreground">
-          {label}
-        </span>
-        {editing ? (
-          <Input
-            className="font-mono h-7 px-2 py-1 text-sm"
-            value={value}
-            onChange={(e) => onChange({ ...identity, [field]: e.target.value })}
-          />
-        ) : (
-          <span className="font-mono text-sm">{value}</span>
-        )}
-      </div>
-    );
-  }
-
   // 44-char TD3 MRZ lines
-  const surname = identity.lastName.toUpperCase().replace(/[^A-Z]/g, "");
-  const given = identity.firstName.toUpperCase().replace(/[^A-Z]/g, "");
+  const surname = passport.lastName.toUpperCase().replace(/[^A-Z]/g, "");
+  const given = passport.firstName.toUpperCase().replace(/[^A-Z]/g, "");
   const nameField = `${surname}<<${given}`.padEnd(39, "<").slice(0, 39);
   const mrzLine1 = `P<USA${nameField}`;
-  const dobParts = identity.dob.split("/");
+  const dobParts = passport.dob.split("/");
   const mrzDob =
     dobParts.length === 3
       ? `${dobParts[2].slice(2)}${dobParts[0]}${dobParts[1]}`
@@ -226,9 +197,35 @@ function Identity({
     .padEnd(44, "<")
     .slice(0, 44);
 
+  const handleOnFieldChange = (value: string, field: string) => {
+    onChange({ ...passport, [field]: value });
+  };
+
+  const handleEditClick = () => {
+    setEditing((editing) => !editing);
+  };
+
+  const PassportField = ({
+    label,
+    value,
+    field,
+  }: {
+    label: string;
+    value: string;
+    field: keyof Passport;
+  }) => (
+    <Field
+      label={label}
+      value={value}
+      field={field}
+      isEditing={editing}
+      onChange={handleOnFieldChange}
+    />
+  );
+
   return (
     <div className="bg-card rounded-xl overflow-hidden shadow-sm">
-      {/*<PassportRosette />*/}
+      <PassportRosette />
 
       {/* Data section */}
       <div className="p-5 flex flex-col gap-8">
@@ -241,7 +238,7 @@ function Identity({
                   INTERNATIONAL PASSPORT
                 </p>
                 <p className="text-xs tracking-widest text-muted-foreground uppercase">
-                  Identity Document
+                  passport Document
                 </p>
               </div>
 
@@ -249,7 +246,7 @@ function Identity({
                 variant="ghost"
                 size="icon"
                 className="h-7 w-7 shrink-0"
-                onClick={() => setEditing((e) => !e)}
+                onClick={handleEditClick}
               >
                 {editing ? (
                   <Check className="h-4 w-4" />
@@ -260,25 +257,33 @@ function Identity({
             </div>
 
             <div className="flex gap-6">
-              <Field
+              <PassportField
                 label="Given Name"
-                value={identity.firstName}
+                value={passport.firstName}
                 field="firstName"
               />
-              <Field
+              <PassportField
                 label="Surname"
-                value={identity.lastName}
+                value={passport.lastName}
                 field="lastName"
               />
             </div>
 
             <div className="flex gap-6">
-              <Field label="Nationality" value="CITIZEN" field="city" />
+              <PassportField label="Nationality" value="CITIZEN" field="city" />
             </div>
 
             <div className="flex gap-6">
-              <Field label="Date of Birth" value={identity.dob} field="dob" />
-              <Field label="Phone" value={identity.phone} field="phone" />
+              <PassportField
+                label="Date of Birth"
+                value={passport.dob}
+                field="dob"
+              />
+              <PassportField
+                label="Phone"
+                value={passport.phone}
+                field="phone"
+              />
             </div>
           </div>
 
@@ -293,53 +298,61 @@ function Identity({
 
         <div className="flex gap-6">
           <div className="flex-1">
-            <Field label="Sex" value="—" field="username" />
+            <PassportField label="Sex" value="—" field="username" />
           </div>
           <div className="flex-1">
-            <Field
+            <PassportField
               label="Place of Birth"
-              value={`${identity.city}, ${identity.state}`}
+              value={`${passport.city}, ${passport.state}`}
               field="city"
             />
           </div>
           <div className="flex-1">
-            <Field
+            <PassportField
               label="Holder's Signature"
-              value={identity.username}
+              value={passport.username}
               field="username"
             />
           </div>
         </div>
 
-        <Field label="Address" value={identity.address} field="address" />
+        <PassportField
+          label="Address"
+          value={passport.address}
+          field="address"
+        />
 
         <div className="flex gap-4">
           <div className="flex-1">
-            <Field label="Country" value={identity.country} field="city" />
+            <PassportField
+              label="Country"
+              value={passport.country}
+              field="city"
+            />
           </div>
           <div className="flex-1">
-            <Field label="City" value={identity.city} field="city" />
+            <PassportField label="City" value={passport.city} field="city" />
           </div>
           <div className="flex-1">
-            <Field label="State" value={identity.state} field="state" />
+            <PassportField label="State" value={passport.state} field="state" />
           </div>
           <div className="flex-1">
-            <Field label="ZIP" value={identity.zip} field="zip" />
+            <PassportField label="ZIP" value={passport.zip} field="zip" />
           </div>
         </div>
 
         <div className="flex gap-6">
           <div className="flex-1">
-            <Field
+            <PassportField
               label="Username"
-              value={identity.username}
+              value={passport.username}
               field="username"
             />
           </div>
           <div className="flex-1">
-            <Field
+            <PassportField
               label="Password"
-              value={identity.password}
+              value={passport.password}
               field="password"
             />
           </div>
@@ -347,6 +360,41 @@ function Identity({
       </div>
 
       <PassportMrz line1={mrzLine1} line2={mrzLine2} />
+    </div>
+  );
+}
+
+function Field({
+  label,
+  value,
+  field,
+  isEditing,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  field: keyof Passport;
+  isEditing: boolean;
+  onChange: (value: string, field: string) => void;
+}) {
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value, field);
+  };
+
+  return (
+    <div className="flex flex-col gap-0.5">
+      <span className="text-xs tracking-widest uppercase text-muted-foreground">
+        {label}
+      </span>
+      {isEditing ? (
+        <Input
+          className="font-mono h-7 px-2 py-1 text-sm"
+          value={value}
+          onChange={handleOnChange}
+        />
+      ) : (
+        <span className="font-mono text-sm">{value}</span>
+      )}
     </div>
   );
 }
