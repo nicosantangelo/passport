@@ -65,7 +65,7 @@ function App() {
     <div className="flex flex-col items-center justify-center">
       <div className="w-full max-w-6xl flex flex-col gap-6 mt-16 px-4">
         <div className="flex items-stretch ">
-          <div className="flex-1 border-r border-border">
+          <div className="flex-1">
             <Passport passport={passport} />
           </div>
 
@@ -88,7 +88,7 @@ function DigitalPassport({ passport }: { passport: PassportType }) {
   const [selectedSms, setSelectedSms] = useState(0);
 
   return (
-    <div className="flex-1 bg-card rounded-r-xl overflow-hidden shadow-sm px-5 py-8 flex flex-col gap-8">
+    <div className="flex-1 bg-card rounded-r-xl overflow-hidden shadow-sm px-5 py-8 flex flex-col gap-8 [box-shadow:inset_5px_0_12px_-8px_var(--color-border)]">
       <p className="text-xl tracking-[0.2em] uppercase font-semibold">
         DIGITAL VISA
       </p>
