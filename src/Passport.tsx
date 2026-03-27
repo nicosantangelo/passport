@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Check, Copy } from "lucide-react";
 import { PassportMrz } from "./PassportMrz";
 import { type Passport } from "./lib/passport";
 
@@ -80,11 +82,35 @@ export function PassportField({
   label: string;
   value: string;
 }) {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleOnCopy = () => {
+    if (isCopied) return;
+    navigator.clipboard.writeText(value);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 800);
+  };
+
   return (
-    <div className="flex flex-col gap-0.5">
-      <span className="text-xs tracking-widest uppercase text-muted-foreground">
-        {label}
-      </span>
+    <div
+      className="group/field flex flex-col gap-0.5 cursor-pointer"
+      onClick={handleOnCopy}
+    >
+      <div className="flex items-center gap-1">
+        <span className="text-xs tracking-widest uppercase text-muted-foreground">
+          {label}
+        </span>
+        <div className="relative size-2.5 opacity-0 group-hover/field:opacity-100 transition-opacity text-muted-foreground hover:text-foreground cursor-pointer">
+          <Copy
+            size={10}
+            className={`absolute transition-opacity duration-300 ${isCopied ? "opacity-0" : "opacity-100"}`}
+          />
+          <Check
+            size={10}
+            className={`absolute transition-opacity duration-300 ${isCopied ? "opacity-100" : "opacity-0"}`}
+          />
+        </div>
+      </div>
       <span className="font-mono text-md">{value}</span>
     </div>
   );
