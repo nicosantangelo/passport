@@ -1,10 +1,20 @@
-export function PassportMrz({
-  line1,
-  line2,
-}: {
-  line1: string;
-  line2: string;
-}) {
+import { type Passport } from "./lib/passport";
+
+export function PassportMrz({ passport }: { passport: Passport }) {
+  const surname = passport.lastName.toUpperCase().replace(/[^A-Z]/g, "");
+  const given = passport.firstName.toUpperCase().replace(/[^A-Z]/g, "");
+  const nameField = `${surname}<<${given}`.padEnd(39, "<").slice(0, 39);
+  const line1 = `P<USA${nameField}`;
+
+  const dobParts = passport.dob.split("/");
+  const mrzDob =
+    dobParts.length === 3
+      ? `${dobParts[2].slice(2)}${dobParts[0]}${dobParts[1]}`
+      : "000000";
+  const line2 = `ID0000000<0USA${mrzDob}0F3001010<<<<<<<<<<<<00`
+    .padEnd(44, "<")
+    .slice(0, 44);
+
   const Row = ({ lines }: { lines: string[] }) => (
     <div className="flex justify-between w-full">
       {lines.map((character, index) => (
