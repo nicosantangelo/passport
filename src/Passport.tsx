@@ -54,7 +54,7 @@ export function Passport({ passport }: { passport: Passport }) {
 
         <div className="flex gap-6">
           <div className="flex-1">
-            <PassportField label="Country" value={passport.country} />
+            <PassportField label="Country" value={`${passport.countryFlag} ${passport.country}`} />
           </div>
           <div className="flex-1">
             <PassportField label="City" value={passport.city} />

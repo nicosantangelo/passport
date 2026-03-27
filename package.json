@@ -15,8 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "@base-ui/react": "^1.3.0",
+    "@faker-js/faker": "^10.4.0",
     "@fontsource-variable/geist": "^5.2.8",
-    "@ngneat/falso": "^8.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
