@@ -28,6 +28,26 @@ export type Passport = {
   password: string;
 };
 
+export type Provider = {
+  name: string;
+  url: string;
+};
+
+export const EMAIL_PROVIDERS: Provider[] = [
+  { name: "temp-mail.org", url: "https://temp-mail.org/en/" },
+  { name: "guerrillamail.com", url: "https://www.guerrillamail.com/" },
+  { name: "maildrop.cc", url: "https://maildrop.cc/" },
+  { name: "10minutemail.com", url: "https://10minutemail.com/" },
+  { name: "yopmail.com", url: "https://yopmail.com/" },
+  { name: "emailondeck.com", url: "https://www.emailondeck.com/" },
+];
+
+export const SMS_PROVIDERS: Provider[] = [
+  { name: "receive-sms.io", url: "https://receive-sms.io/" },
+  { name: "quackr.io", url: "https://quackr.io/" },
+  { name: "anonymsms.com", url: "https://anonymsms.com/" },
+];
+
 export function generatePassport(): Passport {
   const now = new Date();
   const from = new Date(now.getFullYear() - 80, 0, 1);
