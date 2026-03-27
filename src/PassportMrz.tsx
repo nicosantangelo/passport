@@ -26,7 +26,7 @@ export function PassportMrz({ passport }: { passport: Passport }) {
   );
 
   return (
-    <div className="border-t border-border px-5 py-5 flex flex-col gap-1.5">
+    <div className="border-t border-border px-5 py-5 flex flex-col gap-1.5 bg-white/3">
       <Row lines={line1.split("")} />
       <Row lines={line2.split("")} />
     </div>
