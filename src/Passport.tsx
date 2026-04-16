@@ -6,7 +6,7 @@ import { Identicon } from "./Identicon";
 
 export function Passport({ passport }: { passport: Passport }) {
   return (
-    <div className="bg-card rounded-xl min-[720px]:rounded-r-none overflow-hidden shadow-sm">
+    <div className="bg-card rounded-none min-[720px]:rounded-xl min-[720px]:rounded-r-none overflow-hidden shadow-sm">
       {/* Data section */}
       <div className="px-5 py-10 flex flex-col gap-10">
         {/* Title + doc number + edit + photo */}

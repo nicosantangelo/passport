@@ -18,7 +18,7 @@ export function DigitalPassport({
   const [selectedSms, setSelectedSms] = useState(0);
 
   return (
-    <div className="min-[720px]:flex-1 bg-card rounded-xl min-[720px]:rounded-l-none overflow-hidden shadow-sm px-5 py-10 flex flex-col gap-10 min-[720px]:[box-shadow:inset_8px_0_12px_-8px_var(--color-border)]">
+    <div className="min-[720px]:flex-1 bg-card rounded-none min-[720px]:rounded-xl min-[720px]:rounded-l-none overflow-hidden shadow-sm px-5 py-10 flex flex-col gap-10 min-[720px]:[box-shadow:inset_8px_0_12px_-8px_var(--color-border)]">
       <p className="text-xl tracking-[0.2em] uppercase font-semibold">
         DIGITAL VISA
       </p>
