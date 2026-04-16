@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && rm index.html && cp -r dist/* . && rm -rf dist"
+    "deploy": "npm run build && rm index.html && cp -r dist/* . && rm -rf dist",
+    "cli": "tsx cli/index.ts",
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
+    "picocolors": "^1.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "shadcn": "^4.0.6",
@@ -34,7 +37,9 @@
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.0.0",
     "tailwindcss": "^4.0.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.0.0",
-    "vite": "^6.0.0"
+    "vite": "^6.0.0",
+    "vitest": "^4.1.4"
   }
 }
