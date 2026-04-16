@@ -49,7 +49,7 @@ export function Passport({
           </div>
 
           {/* Photo */}
-          <div>
+          <div className="hidden min-[720px]:block">
             <p className="font-mono text-[10px] text-muted-foreground mt-0.5 tracking-widest">
               AA03 0123456789
             </p>
