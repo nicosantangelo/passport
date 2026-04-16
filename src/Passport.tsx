@@ -6,8 +6,6 @@ import { type Passport } from "./lib/passport";
 export function Passport({ passport }: { passport: Passport }) {
   return (
     <div className="bg-card rounded-xl min-[720px]:rounded-r-none overflow-hidden shadow-sm">
-      {/*<PassportRosette />*/}
-
       {/* Data section */}
       <div className="px-5 py-10 flex flex-col gap-10">
         {/* Title + doc number + edit + photo */}
@@ -54,7 +52,10 @@ export function Passport({ passport }: { passport: Passport }) {
 
         <div className="flex gap-6">
           <div className="flex-1">
-            <PassportField label="Country" value={`${passport.countryFlag} ${passport.country}`} />
+            <PassportField
+              label="Country"
+              value={`${passport.countryFlag} ${passport.country}`}
+            />
           </div>
           <div className="flex-1">
             <PassportField label="City" value={passport.city} />
