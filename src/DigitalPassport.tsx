@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, RefreshCw } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { cn } from "./lib/utils";
 import {
   type Passport as PassportType,
@@ -8,46 +8,20 @@ import {
   SMS_PROVIDERS,
 } from "./lib/passport";
 import { PassportField } from "./Passport";
-import { Button } from "./components/ui/button";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "./components/ui/tooltip";
 
 export function DigitalPassport({
   passport,
-  onRegenerate,
 }: {
   passport: PassportType;
-  onRegenerate: () => void;
 }) {
   const [selectedEmail, setSelectedEmail] = useState(0);
   const [selectedSms, setSelectedSms] = useState(0);
 
   return (
     <div className="min-[720px]:flex-1 bg-card rounded-xl min-[720px]:rounded-l-none overflow-hidden shadow-sm px-5 py-10 flex flex-col gap-10 min-[720px]:[box-shadow:inset_8px_0_12px_-8px_var(--color-border)]">
-      <div className="flex items-start justify-between">
-        <p className="text-xl tracking-[0.2em] uppercase font-semibold">
-          DIGITAL VISA
-        </p>
-
-        <Tooltip>
-          <TooltipTrigger
-            render={
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className="hidden min-[720px]:inline-flex"
-                onClick={onRegenerate}
-              />
-            }
-          >
-            <RefreshCw size={14} className="text-muted-foreground" />
-          </TooltipTrigger>
-          <TooltipContent>Generate new identity</TooltipContent>
-        </Tooltip>
-      </div>
+      <p className="text-xl tracking-[0.2em] uppercase font-semibold">
+        DIGITAL VISA
+      </p>
 
       <PassportField label="Username" value={passport.username} />
       <PassportField label="Password" value={passport.password} />
