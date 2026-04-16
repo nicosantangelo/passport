@@ -26,7 +26,7 @@ export function DigitalPassport({
   const [selectedSms, setSelectedSms] = useState(0);
 
   return (
-    <div className="flex-1 bg-card rounded-r-xl overflow-hidden shadow-sm px-5 py-10 flex flex-col gap-10 [box-shadow:inset_8px_0_12px_-8px_var(--color-border)]">
+    <div className="min-[720px]:flex-1 bg-card rounded-xl min-[720px]:rounded-l-none overflow-hidden shadow-sm px-5 py-10 flex flex-col gap-10 min-[720px]:[box-shadow:inset_8px_0_12px_-8px_var(--color-border)]">
       <div className="flex items-start justify-between">
         <p className="text-xl tracking-[0.2em] uppercase font-semibold">
           DIGITAL VISA
@@ -38,6 +38,7 @@ export function DigitalPassport({
               <Button
                 variant="ghost"
                 size="icon-sm"
+                className="hidden min-[720px]:inline-flex"
                 onClick={onRegenerate}
               />
             }

@@ -5,7 +5,7 @@ import { type Passport } from "./lib/passport";
 
 export function Passport({ passport }: { passport: Passport }) {
   return (
-    <div className="bg-card rounded-l-xl overflow-hidden shadow-sm">
+    <div className="bg-card rounded-xl min-[720px]:rounded-r-none overflow-hidden shadow-sm">
       {/*<PassportRosette />*/}
 
       {/* Data section */}
