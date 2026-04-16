@@ -12,7 +12,7 @@ export function PassportStamp({ onClick }: { onClick: () => void }) {
           render={
             <button
               onClick={onClick}
-              className="cursor-pointer opacity-70 hover:opacity-85 active:scale-95 transition-all duration-150"
+              className="cursor-pointer opacity-70 hover:opacity-85 active:scale-95 transition-all duration-150 focus:outline-none"
               aria-label="Generate new identity"
             />
           }
