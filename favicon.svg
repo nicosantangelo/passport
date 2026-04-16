@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Passport cover -->
+  <rect x="4" y="2" width="24" height="28" rx="3" fill="#1a1b1e" stroke="#f48067" stroke-width="1.5"/>
+
+  <!-- Emblem circle -->
+  <circle cx="16" cy="14" r="6" fill="none" stroke="#f48067" stroke-width="1.5"/>
+
+  <!-- Inner dot -->
+  <circle cx="16" cy="14" r="2" fill="#f48067"/>
+
+  <!-- Bottom line (like "PASSPORT" text on a real cover) -->
+  <line x1="9" y1="24" x2="23" y2="24" stroke="#f48067" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
