@@ -9,11 +9,7 @@ import {
 } from "./lib/passport";
 import { PassportField } from "./Passport";
 
-export function DigitalPassport({
-  passport,
-}: {
-  passport: PassportType;
-}) {
+export function DigitalPassport({ passport }: { passport: PassportType }) {
   const [selectedEmail, setSelectedEmail] = useState(0);
   const [selectedSms, setSelectedSms] = useState(0);
 

@@ -26,24 +26,24 @@ type LocaleConfig = {
 };
 
 const LOCALES: LocaleConfig[] = [
-  { faker: fakerEN,   iso2: "US", icao: "USA", name: "United States"  },
-  { faker: fakerENCA, iso2: "CA", icao: "CAN", name: "Canada"         },
-  { faker: fakerESMX, iso2: "MX", icao: "MEX", name: "Mexico"         },
-  { faker: fakerPTBR, iso2: "BR", icao: "BRA", name: "Brazil"         },
-  { faker: fakerRU,   iso2: "RU", icao: "RUS", name: "Russia"         },
-  { faker: fakerSV,   iso2: "SE", icao: "SWE", name: "Sweden"         },
-  { faker: fakerPTPT, iso2: "PT", icao: "PRT", name: "Portugal"       },
-  { faker: fakerDE,   iso2: "DE", icao: "D",   name: "Germany"        },
-  { faker: fakerFR,   iso2: "FR", icao: "FRA", name: "France"         },
-  { faker: fakerES,   iso2: "ES", icao: "ESP", name: "Spain"          },
-  { faker: fakerIT,   iso2: "IT", icao: "ITA", name: "Italy"          },
-  { faker: fakerNL,   iso2: "NL", icao: "NLD", name: "Netherlands"    },
-  { faker: fakerPL,   iso2: "PL", icao: "POL", name: "Poland"         },
-  { faker: fakerJA,   iso2: "JP", icao: "JPN", name: "Japan"          },
-  { faker: fakerKO,   iso2: "KR", icao: "KOR", name: "South Korea"    },
-  { faker: fakerZHCN, iso2: "CN", icao: "CHN", name: "China"          },
-  { faker: fakerENIN, iso2: "IN", icao: "IND", name: "India"          },
-  { faker: fakerTR,   iso2: "TR", icao: "TUR", name: "Turkey"         },
+  { faker: fakerEN, iso2: "US", icao: "USA", name: "United States" },
+  { faker: fakerENCA, iso2: "CA", icao: "CAN", name: "Canada" },
+  { faker: fakerESMX, iso2: "MX", icao: "MEX", name: "Mexico" },
+  { faker: fakerPTBR, iso2: "BR", icao: "BRA", name: "Brazil" },
+  { faker: fakerRU, iso2: "RU", icao: "RUS", name: "Russia" },
+  { faker: fakerSV, iso2: "SE", icao: "SWE", name: "Sweden" },
+  { faker: fakerPTPT, iso2: "PT", icao: "PRT", name: "Portugal" },
+  { faker: fakerDE, iso2: "DE", icao: "D", name: "Germany" },
+  { faker: fakerFR, iso2: "FR", icao: "FRA", name: "France" },
+  { faker: fakerES, iso2: "ES", icao: "ESP", name: "Spain" },
+  { faker: fakerIT, iso2: "IT", icao: "ITA", name: "Italy" },
+  { faker: fakerNL, iso2: "NL", icao: "NLD", name: "Netherlands" },
+  { faker: fakerPL, iso2: "PL", icao: "POL", name: "Poland" },
+  { faker: fakerJA, iso2: "JP", icao: "JPN", name: "Japan" },
+  { faker: fakerKO, iso2: "KR", icao: "KOR", name: "South Korea" },
+  { faker: fakerZHCN, iso2: "CN", icao: "CHN", name: "China" },
+  { faker: fakerENIN, iso2: "IN", icao: "IND", name: "India" },
+  { faker: fakerTR, iso2: "TR", icao: "TUR", name: "Turkey" },
 ];
 
 // Bypass faker's city pattern generator (which produces nonsense like
@@ -60,7 +60,8 @@ for (const { faker } of LOCALES) {
   const location = (faker as any).rawDefinitions?.location;
   const cityNameCount = location?.city_name?.length ?? 0;
   const hasOwnCityList =
-    cityNameCount > 0 && (cityNameCount !== enCityNameCount || faker === fakerEN);
+    cityNameCount > 0 &&
+    (cityNameCount !== enCityNameCount || faker === fakerEN);
 
   if (hasOwnCityList) {
     location.city_pattern = ["{{location.city_name}}"];
@@ -128,7 +129,7 @@ export function generatePassport(): Passport {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     sex: faker.person.sex(),
-    phone: faker.phone.number({ style: 'international' }),
+    phone: faker.phone.number({ style: "international" }),
     address: faker.location.streetAddress(),
     country: locale.name,
     countryCode: locale.icao,
