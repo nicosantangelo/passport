@@ -7,7 +7,6 @@ import { faker as fakerES } from "@faker-js/faker/locale/es";
 import { faker as fakerRU } from "@faker-js/faker/locale/ru";
 import { faker as fakerSV } from "@faker-js/faker/locale/sv";
 import { faker as fakerPTPT } from "@faker-js/faker/locale/pt_PT";
-import { faker as fakerENGB } from "@faker-js/faker/locale/en_GB";
 import { faker as fakerDE } from "@faker-js/faker/locale/de";
 import { faker as fakerFR } from "@faker-js/faker/locale/fr";
 import { faker as fakerIT } from "@faker-js/faker/locale/it";
@@ -17,8 +16,6 @@ import { faker as fakerJA } from "@faker-js/faker/locale/ja";
 import { faker as fakerKO } from "@faker-js/faker/locale/ko";
 import { faker as fakerZHCN } from "@faker-js/faker/locale/zh_CN";
 import { faker as fakerENIN } from "@faker-js/faker/locale/en_IN";
-import { faker as fakerENAU } from "@faker-js/faker/locale/en_AU";
-import { faker as fakerENZA } from "@faker-js/faker/locale/en_ZA";
 import { faker as fakerTR } from "@faker-js/faker/locale/tr";
 
 type LocaleConfig = {
@@ -36,7 +33,6 @@ const LOCALES: LocaleConfig[] = [
   { faker: fakerRU,   iso2: "RU", icao: "RUS", name: "Russia"         },
   { faker: fakerSV,   iso2: "SE", icao: "SWE", name: "Sweden"         },
   { faker: fakerPTPT, iso2: "PT", icao: "PRT", name: "Portugal"       },
-  { faker: fakerENGB, iso2: "GB", icao: "GBR", name: "United Kingdom" },
   { faker: fakerDE,   iso2: "DE", icao: "D",   name: "Germany"        },
   { faker: fakerFR,   iso2: "FR", icao: "FRA", name: "France"         },
   { faker: fakerES,   iso2: "ES", icao: "ESP", name: "Spain"          },
@@ -47,10 +43,29 @@ const LOCALES: LocaleConfig[] = [
   { faker: fakerKO,   iso2: "KR", icao: "KOR", name: "South Korea"    },
   { faker: fakerZHCN, iso2: "CN", icao: "CHN", name: "China"          },
   { faker: fakerENIN, iso2: "IN", icao: "IND", name: "India"          },
-  { faker: fakerENAU, iso2: "AU", icao: "AUS", name: "Australia"      },
-  { faker: fakerENZA, iso2: "ZA", icao: "ZAF", name: "South Africa"   },
   { faker: fakerTR,   iso2: "TR", icao: "TUR", name: "Turkey"         },
 ];
+
+// Bypass faker's city pattern generator (which produces nonsense like
+// "Turner-over-Bartell") and pick only from real city name lists.
+// Locales that inherited en's city_name without their own list (nl, sv,
+// pt_BR, ja) keep their patterns — those combine locale-specific prefixes
+// and suffixes into plausible names (e.g. "Oliveira do Sul" for pt_BR).
+const enCityNameCount =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (fakerEN as any).rawDefinitions?.location?.city_name?.length ?? 0;
+
+for (const { faker } of LOCALES) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const location = (faker as any).rawDefinitions?.location;
+  const cityNameCount = location?.city_name?.length ?? 0;
+  const hasOwnCityList =
+    cityNameCount > 0 && (cityNameCount !== enCityNameCount || faker === fakerEN);
+
+  if (hasOwnCityList) {
+    location.city_pattern = ["{{location.city_name}}"];
+  }
+}
 
 export type Passport = {
   firstName: string;
