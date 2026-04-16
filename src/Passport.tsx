@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { PassportMrz } from "./PassportMrz";
 import { type Passport } from "./lib/passport";
+import { Identicon } from "./Identicon";
 
 export function Passport({ passport }: { passport: Passport }) {
   return (
@@ -44,7 +45,10 @@ export function Passport({ passport }: { passport: Passport }) {
               AA03 0123456789
             </p>
 
-            <div className="w-full h-28 rounded bg-primary shrink-0 mt-2" />
+            <Identicon
+              seed={`${passport.firstName}${passport.lastName}${passport.dob}`}
+              className="w-full h-28 rounded shrink-0 mt-2"
+            />
           </div>
         </div>
 
