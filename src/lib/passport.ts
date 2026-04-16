@@ -113,7 +113,7 @@ export function generatePassport(): Passport {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     sex: faker.person.sex(),
-    phone: faker.phone.number(),
+    phone: faker.phone.number({ style: 'international' }),
     address: faker.location.streetAddress(),
     country: locale.name,
     countryCode: locale.icao,
