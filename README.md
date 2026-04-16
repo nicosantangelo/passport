@@ -2,8 +2,6 @@
 
 Fake data generator for temporary signups and testing.
 
-## Website
-
 https://passport.nicosantangelo.com
 
 ## CLI
