@@ -9,7 +9,7 @@ export function Passport({ passport }: { passport: Passport }) {
       {/*<PassportRosette />*/}
 
       {/* Data section */}
-      <div className="px-5 py-8 flex flex-col gap-8">
+      <div className="px-5 py-10 flex flex-col gap-10">
         {/* Title + doc number + edit + photo */}
         <div className="flex gap-5">
           <div className="flex-1 flex flex-col gap-8">
