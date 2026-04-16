@@ -6,19 +6,20 @@ import {
 
 export function PassportStamp({ onClick }: { onClick: () => void }) {
   return (
-    <Tooltip>
-      <TooltipTrigger
-        render={
-          <button
-            onClick={onClick}
-            className="cursor-pointer opacity-70 hover:opacity-100 active:scale-95 transition-all duration-150"
-            aria-label="Generate new identity"
-          />
-        }
-      >
+    <div className="animate-stamp">
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <button
+              onClick={onClick}
+              className="cursor-pointer opacity-70 hover:opacity-85 active:scale-95 transition-all duration-150"
+              aria-label="Generate new identity"
+            />
+          }
+        >
       <svg
-        width="110"
-        height="110"
+        width="99"
+        height="99"
         viewBox="0 0 120 120"
         className="text-primary"
       >
@@ -103,6 +104,7 @@ export function PassportStamp({ onClick }: { onClick: () => void }) {
       </svg>
       </TooltipTrigger>
       <TooltipContent>Generate new identity</TooltipContent>
-    </Tooltip>
+      </Tooltip>
+    </div>
   );
 }
