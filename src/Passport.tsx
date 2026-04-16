@@ -3,8 +3,17 @@ import { Check, Copy } from "lucide-react";
 import { PassportMrz } from "./PassportMrz";
 import { type Passport } from "./lib/passport";
 import { Identicon } from "./Identicon";
+import { CountryField } from "./CountryField";
 
-export function Passport({ passport }: { passport: Passport }) {
+export function Passport({
+  passport,
+  pinnedCountry,
+  onPinCountry,
+}: {
+  passport: Passport;
+  pinnedCountry: string | null;
+  onPinCountry: (iso2: string | null) => void;
+}) {
   return (
     <div className="bg-card rounded-none min-[720px]:rounded-xl min-[720px]:rounded-r-none overflow-hidden shadow-sm">
       {/* Data section */}
@@ -56,9 +65,11 @@ export function Passport({ passport }: { passport: Passport }) {
 
         <div className="flex gap-6">
           <div className="flex-1">
-            <PassportField
-              label="Country"
-              value={`${passport.countryFlag} ${passport.country}`}
+            <CountryField
+              country={passport.country}
+              countryFlag={passport.countryFlag}
+              pinnedCountry={pinnedCountry}
+              onPinCountry={onPinCountry}
             />
           </div>
           <div className="flex-1">

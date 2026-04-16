@@ -18,14 +18,14 @@ import { faker as fakerZHCN } from "@faker-js/faker/locale/zh_CN";
 import { faker as fakerENIN } from "@faker-js/faker/locale/en_IN";
 import { faker as fakerTR } from "@faker-js/faker/locale/tr";
 
-type LocaleConfig = {
+export type LocaleConfig = {
   faker: Faker;
   iso2: string;
   icao: string;
   name: string;
 };
 
-const LOCALES: LocaleConfig[] = [
+export const LOCALES: LocaleConfig[] = [
   { faker: fakerEN, iso2: "US", icao: "USA", name: "United States" },
   { faker: fakerENCA, iso2: "CA", icao: "CAN", name: "Canada" },
   { faker: fakerESMX, iso2: "MX", icao: "MEX", name: "Mexico" },
@@ -106,15 +106,21 @@ export const SMS_PROVIDERS: Provider[] = [
   { name: "anonymsms.com", url: "https://anonymsms.com/" },
 ];
 
-function getCountryFlag(iso2: string): string {
+export function getCountryFlag(iso2: string): string {
   return iso2
     .split("")
     .map((c) => String.fromCodePoint(0x1f1e6 + c.charCodeAt(0) - 65))
     .join("");
 }
 
-export function generatePassport(): Passport {
-  const locale = LOCALES[Math.floor(Math.random() * LOCALES.length)];
+function randomLocale(): LocaleConfig {
+  return LOCALES[Math.floor(Math.random() * LOCALES.length)];
+}
+
+export function generatePassport(localeIso2?: string): Passport {
+  const locale = localeIso2
+    ? (LOCALES.find((l) => l.iso2 === localeIso2) ?? randomLocale())
+    : randomLocale();
   const { faker } = locale;
 
   const dob = faker.date.between({
